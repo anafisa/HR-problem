@@ -1,0 +1,13 @@
+{{{Subscript["r", 1], {{Subscript["h", 2], Subscript["h", 3]}, 
+    {Subscript["h", 1]}}}, {Subscript["r", 2], {{Subscript["h", 2]}, 
+    {Subscript["h", 1]}}}, {Subscript["r", 3], {{Subscript["h", 3]}, 
+    {Subscript["h", 2]}, {Subscript["h", 1]}}}, 
+  {Subscript["r", 4], {{Subscript["h", 2]}, {Subscript["h", 3]}}}, 
+  {Subscript["r", 5], {{Subscript["h", 2]}, {Subscript["h", 1], 
+     Subscript["h", 3]}}}, {Subscript["r", 6], {{Subscript["h", 3]}}}}, 
+ {{Subscript["h", 1], {{Subscript["r", 2]}, {Subscript["r", 1], 
+     Subscript["r", 3]}, {Subscript["r", 5]}}, 3}, 
+  {Subscript["h", 2], {{Subscript["r", 3]}, {Subscript["r", 2]}, 
+    {Subscript["r", 1], Subscript["r", 4], Subscript["r", 5]}}, 2}, 
+  {Subscript["h", 3], {{Subscript["r", 4], Subscript["r", 5]}, 
+    {Subscript["r", 1], Subscript["r", 3]}, {Subscript["r", 6]}}, 1}}}

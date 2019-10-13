@@ -1,0 +1,612 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     24566,        602]
+NotebookOptionsPosition[     24240,        588]
+NotebookOutlinePosition[     24611,        604]
+CellTagsIndexPosition[     24568,        601]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[{
+ StyleBox[
+  RowBox[{
+   RowBox[{"Clear", "@", "repleteQ"}], " "}],
+  FontSize->24], "\[IndentingNewLine]", 
+ StyleBox[
+  RowBox[{
+   RowBox[{
+    RowBox[{"repleteQ", "[", 
+     RowBox[{"graph_", ",", " ", "h_", ",", " ", "q_"}], "]"}], ":=", " ", 
+    RowBox[{
+     RowBox[{"Length", "[", 
+      RowBox[{"Cases", "[", 
+       RowBox[{"graph", ",", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"r_", ",", "h"}], "}"}], "\[RuleDelayed]", " ", "r"}]}], 
+       "]"}], "]"}], ">=", "q"}]}], "\n"}],
+  FontSize->24], "\[IndentingNewLine]", 
+ StyleBox[
+  RowBox[{
+   RowBox[{"Clear", "@", "deleteDominated"}], " "}],
+  FontSize->24], "\[IndentingNewLine]", 
+ StyleBox[
+  RowBox[{
+   RowBox[{
+    RowBox[{"deleteDominated", "[", 
+     RowBox[{
+     "graph_", ",", "h_", ",", "q_", ",", "prefOfHosp_", ",", 
+      "associationRes_"}], "]"}], ":=", " ", 
+    RowBox[{"Module", "[", "\n", "\t", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"res", " ", "=", 
+         RowBox[{"Cases", "[", 
+          RowBox[{"graph", ",", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"r_", ",", "h"}], "}"}], "\[RuleDelayed]", " ", "r"}]}], 
+          "]"}]}], ",", "\[IndentingNewLine]", "\t", 
+        RowBox[{"newPrefOfHosp", " ", "=", " ", "prefOfHosp"}], ",", 
+        "\[IndentingNewLine]", "\t", 
+        RowBox[{"newAssociationRes", " ", "=", " ", "associationRes"}], ",", 
+        "\[IndentingNewLine]", "\t", 
+        RowBox[{"newGraph", " ", "=", " ", "graph"}], ",", 
+        "\[IndentingNewLine]", "\t", "delete", ",", " ", "dominated"}], "}"}],
+       ",", "\[IndentingNewLine]", "\t", 
+      RowBox[{
+       RowBox[{"delete", " ", "=", 
+        RowBox[{"Max", "[", 
+         RowBox[{
+          RowBox[{"Sort", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{
+              RowBox[{"Position", "[", 
+               RowBox[{"prefOfHosp", ",", "#"}], "]"}], 
+              "\[LeftDoubleBracket]", 
+              RowBox[{"1", ",", "1"}], "\[RightDoubleBracket]"}], "&"}], "/@",
+             "res"}], "]"}], "\[LeftDoubleBracket]", 
+          RowBox[{";;", "q"}], "\[RightDoubleBracket]"}], "]"}]}], ";", 
+       "\[IndentingNewLine]", "\t", 
+       RowBox[{"dominated", "=", 
+        RowBox[{"Flatten", "[", " ", 
+         RowBox[{"newPrefOfHosp", "\[LeftDoubleBracket]", 
+          RowBox[{
+           RowBox[{"delete", "+", "1"}], ";;"}], "\[RightDoubleBracket]"}], 
+         "]"}]}], ";", "\[IndentingNewLine]", "\t", 
+       RowBox[{"newGraph", " ", "=", " ", 
+        RowBox[{"DeleteCases", "[", 
+         RowBox[{"newGraph", ",", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"r_", ",", "h"}], "}"}], "/;", 
+           RowBox[{"MemberQ", "[", 
+            RowBox[{"dominated", ",", "r"}], "]"}]}]}], "]"}]}], ";", 
+       "\[IndentingNewLine]", "\t", 
+       RowBox[{"newPrefOfHosp", " ", "=", " ", 
+        RowBox[{"newPrefOfHosp", "\[LeftDoubleBracket]", 
+         RowBox[{";;", "delete"}], "\[RightDoubleBracket]"}]}], ";", 
+       "\[IndentingNewLine]", "\t", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"newAssociationRes", "[", "#", "]"}], " ", "=", " ", 
+           RowBox[{"DeleteCases", "[", 
+            RowBox[{
+             RowBox[{"newAssociationRes", "[", "#", "]"}], ",", "h", ",", 
+             "2"}], "]"}]}], ")"}], "&"}], "/@", "dominated"}], ";", 
+       "\[IndentingNewLine]", "\t", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"newAssociationRes", "[", "#", "]"}], " ", "=", " ", 
+           RowBox[{"DeleteCases", "[", 
+            RowBox[{
+             RowBox[{"newAssociationRes", "[", "#", "]"}], ",", 
+             RowBox[{"{", "}"}]}], "]"}]}], ")"}], "&"}], "/@", "dominated"}],
+        ";", "\[IndentingNewLine]", "\t", 
+       RowBox[{"{", 
+        RowBox[{"newGraph", ",", "newPrefOfHosp", ",", "newAssociationRes"}], 
+        "}"}]}]}], "]"}]}], "\n"}],
+  FontSize->24], "\[IndentingNewLine]", 
+ StyleBox[
+  RowBox[{"Clear", "@", "deleteEmptyRes"}],
+  FontSize->24], "\[IndentingNewLine]", 
+ StyleBox[
+  RowBox[{
+   RowBox[{
+    RowBox[{"deleteEmptyRes", "[", 
+     RowBox[{"setOfRes_", ",", "assRes_"}], "]"}], ":=", " ", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"set", " ", "=", " ", "setOfRes"}], "}"}], ",", "\n", "\t", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"If", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"assRes", "[", "#", "]"}], " ", "\[Equal]", " ", 
+             RowBox[{"{", "}"}]}], ",", " ", 
+            RowBox[{"set", " ", "=", " ", 
+             RowBox[{"DeleteCases", "[", 
+              RowBox[{"set", ",", "#"}], "]"}]}]}], "]"}], ")"}], "&"}], "/@",
+         "setOfRes"}], ";", " ", "set"}]}], "]"}]}], "\[IndentingNewLine]"}],
+  FontSize->24], "\n", 
+ StyleBox[
+  RowBox[{"Clear", "@", "deleteBound"}],
+  FontSize->24], "\[IndentingNewLine]", 
+ StyleBox[
+  RowBox[{
+   RowBox[{
+    RowBox[{"deleteBound", "[", 
+     RowBox[{"graph_", ",", "assRes_", ",", "assHosp_", ",", " ", "ph_"}], 
+     "]"}], ":=", " ", 
+    RowBox[{"Module", "[", "\n", "\t", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"rgraph", " ", "=", " ", "graph"}], ",", " ", 
+        RowBox[{"n", " ", "=", " ", 
+         RowBox[{"Length", "@", "graph"}]}], ",", 
+        RowBox[{"bound", " ", "=", " ", 
+         RowBox[{"{", "}"}]}], ",", " ", "r", ",", " ", "h", ",", " ", 
+        RowBox[{"mph", " ", "=", " ", "ph"}]}], "}"}], ",", 
+      "\[IndentingNewLine]", "\t", 
+      RowBox[{
+       RowBox[{"Table", "[", "\[IndentingNewLine]", "\t\t", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"r", " ", "=", " ", 
+           RowBox[{"graph", "\[LeftDoubleBracket]", 
+            RowBox[{"i", ",", "1"}], "\[RightDoubleBracket]"}]}], ";", 
+          "\[IndentingNewLine]", "\t\t", 
+          RowBox[{"h", " ", "=", " ", 
+           RowBox[{"graph", "\[LeftDoubleBracket]", 
+            RowBox[{"i", ",", "2"}], "\[RightDoubleBracket]"}]}], ";", 
+          "\[IndentingNewLine]", "\t\t", 
+          RowBox[{"If", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{
+              RowBox[{
+               RowBox[{"Position", "[", 
+                RowBox[{
+                 RowBox[{"assHosp", "[", "h", "]"}], ",", "r"}], "]"}], 
+               "\[LeftDoubleBracket]", 
+               RowBox[{"1", ",", "1"}], "\[RightDoubleBracket]"}], 
+              "\[NotEqual]", " ", 
+              RowBox[{"Length", "@", 
+               RowBox[{"assHosp", "[", "h", "]"}]}]}], " ", "||", " ", 
+             RowBox[{
+              RowBox[{"mph", "[", "h", "]"}], "\[GreaterEqual]", " ", 
+              RowBox[{"Length", "[", " ", 
+               RowBox[{"Cases", "[", 
+                RowBox[{"graph", ",", 
+                 RowBox[{"{", 
+                  RowBox[{"_", ",", "h"}], "}"}]}], "]"}], "]"}]}]}], ",", 
+            "\[IndentingNewLine]", "\t\t", "\t", 
+            RowBox[{
+             RowBox[{"rgraph", " ", "=", " ", 
+              RowBox[{"DeleteCases", "[", 
+               RowBox[{"rgraph", ",", 
+                RowBox[{"{", 
+                 RowBox[{"r", ",", "h"}], "}"}]}], "]"}]}], ";", 
+             RowBox[{
+              RowBox[{"mph", "[", "h", "]"}], " ", "=", " ", 
+              RowBox[{
+               RowBox[{"mph", "[", "h", "]"}], "-", "1"}]}], ";", 
+             RowBox[{"AppendTo", "[", 
+              RowBox[{"bound", ",", 
+               RowBox[{"{", 
+                RowBox[{"r", ",", "h"}], "}"}]}], "]"}], ";", 
+             RowBox[{"rgraph", "=", " ", 
+              RowBox[{"DeleteCases", "[", 
+               RowBox[{"rgraph", ",", 
+                RowBox[{"{", 
+                 RowBox[{"r", ",", "_"}], "}"}]}], "]"}]}]}]}], "]"}]}], ",", 
+         "\[IndentingNewLine]", "\t", 
+         RowBox[{"{", 
+          RowBox[{"i", ",", "n"}], "}"}]}], "]"}], ";", "\[IndentingNewLine]",
+        "\t", 
+       RowBox[{"{", 
+        RowBox[{"rgraph", ",", "bound", ",", "ph"}], "}"}]}]}], "]"}]}], 
+   "\n"}],
+  FontSize->24], "\[IndentingNewLine]", 
+ StyleBox[
+  RowBox[{
+   RowBox[{"Clear", "@", "findCriticalSet"}], " "}],
+  FontSize->24], "\n", 
+ RowBox[{
+  StyleBox[
+   RowBox[{
+    RowBox[{"findCriticalSet", "[", 
+     RowBox[{"rgraph_", ",", "assRes_", ",", "assHosp_", ",", "ph_"}], "]"}], 
+    ":=", " ", 
+    RowBox[{"Module", "[", "\[IndentingNewLine]", "\t", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"res", "=", " ", "assRes"}], ",", 
+        RowBox[{"hosp", " ", "=", " ", "assHosp"}], ",", " ", 
+        RowBox[{"g", " ", "=", " ", "rgraph"}], ",", "  ", 
+        RowBox[{"nZ", " ", "=", " ", 
+         RowBox[{"DeleteDuplicates", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"Last", "@", "#"}], "&"}], "/@", "rgraph"}], "]"}]}], ",",
+         "\n", "\t", 
+        RowBox[{"Z", " ", "=", " ", 
+         RowBox[{"DeleteDuplicates", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"First", "@", "#"}], "&"}], "/@", "rgraph"}], "]"}]}], 
+        ",", "  ", "n", " ", ",", "m", ",", " ", "h", ",", "r", ",", " ", 
+        "tail", ",", " ", "residents"}], " ", "}"}], ",", 
+      "\[IndentingNewLine]", "\t", 
+      RowBox[{
+       RowBox[{"n", "  ", "=", " ", 
+        RowBox[{"Length", "@", "nZ"}]}], ";", "\[IndentingNewLine]", "\t", 
+       RowBox[{"Table", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"h", " ", "=", " ", 
+           RowBox[{
+           "nZ", "\[LeftDoubleBracket]", "i", "\[RightDoubleBracket]"}]}], 
+          ";", "\[IndentingNewLine]", "\t\t", 
+          RowBox[{"tail", " ", "=", " ", 
+           RowBox[{"Last", "@", 
+            RowBox[{"hosp", "[", "h", "]"}]}]}], ";", "\[IndentingNewLine]", 
+          "\t\t", 
+          RowBox[{"residents", " ", "=", 
+           RowBox[{"Cases", "[", " ", 
+            RowBox[{"g", ",", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{"x_", ",", "h"}], "}"}], "\[RuleDelayed]", " ", 
+              "x"}]}], "]"}]}], ";", "\[IndentingNewLine]", "\t\t", 
+          RowBox[{"m", " ", "=", " ", 
+           RowBox[{"Length", "@", "residents"}]}], ";", "\[IndentingNewLine]",
+           "\t\t", 
+          RowBox[{"Table", "[", "\[IndentingNewLine]", "\t\t", "\t", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"r", " ", "=", " ", 
+              RowBox[{
+              "residents", "\[LeftDoubleBracket]", "j", 
+               "\[RightDoubleBracket]"}]}], ";", "\[IndentingNewLine]", 
+             "\t\t", "\t", 
+             RowBox[{"If", "[", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"MemberQ", "[", 
+                 RowBox[{"tail", ",", "r"}], "]"}], " ", "&&", " ", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"Position", "[", 
+                   RowBox[{
+                    RowBox[{"hosp", "[", "h", "]"}], ",", "r"}], "]"}], 
+                  "\[LeftDoubleBracket]", 
+                  RowBox[{"1", ",", "1"}], "\[RightDoubleBracket]"}], ">", 
+                 " ", 
+                 RowBox[{"ph", "[", "h", "]"}]}]}], ",", 
+               "\[IndentingNewLine]", "\t\t", "\t", 
+               RowBox[{
+                RowBox[{"Z", " ", "=", " ", 
+                 RowBox[{"DeleteCases", "[", 
+                  RowBox[{"Z", ",", "r"}], "]"}]}], ";", 
+                "\[IndentingNewLine]", "\t\t", "\t", 
+                RowBox[{
+                 RowBox[{"res", "[", "r", "]"}], " ", "=", " ", 
+                 RowBox[{"DeleteCases", "[", 
+                  RowBox[{
+                   RowBox[{"res", "[", "r", "]"}], ",", "h", ",", 
+                   RowBox[{"{", "2", "}"}]}], "]"}]}], ";", 
+                "\[IndentingNewLine]", "\t\t", "\t", 
+                RowBox[{
+                 RowBox[{"hosp", "[", "h", "]"}], "=", " ", 
+                 RowBox[{"DeleteCases", "[", 
+                  RowBox[{
+                   RowBox[{"hosp", "[", "h", "]"}], ",", "r", ",", 
+                   RowBox[{"{", "2", "}"}]}], "]"}]}]}]}], "]"}], ";", 
+             "\[IndentingNewLine]", "\t\t", "\t", 
+             RowBox[{
+              RowBox[{"res", "[", "r", "]"}], "=", " ", 
+              RowBox[{"DeleteCases", "[", 
+               RowBox[{
+                RowBox[{"res", "[", "r", "]"}], ",", 
+                RowBox[{"{", "}"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+             "\t\t", "\t", 
+             RowBox[{
+              RowBox[{"hosp", "[", "h", "]"}], "=", " ", 
+              RowBox[{"DeleteCases", "[", 
+               RowBox[{
+                RowBox[{"hosp", "[", "h", "]"}], ",", 
+                RowBox[{"{", "}"}]}], "]"}]}]}], ",", "\[IndentingNewLine]", 
+            "\t\t", 
+            RowBox[{"{", 
+             RowBox[{"j", ",", "1", ",", "m"}], "}"}]}], "]"}]}], ",", 
+         "\[IndentingNewLine]", "\t\t", 
+         RowBox[{"{", 
+          RowBox[{"i", ",", "1", ",", "n"}], "}"}]}], "]"}], ";", 
+       "\[IndentingNewLine]", "\t", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{"Z", "\[NotEqual]", " ", 
+          RowBox[{"{", "}"}]}], ",", 
+         RowBox[{"Z", " ", "=", " ", 
+          RowBox[{"Cases", "[", 
+           RowBox[{"g", ",", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"x_", ",", "_"}], "}"}], "/;", " ", 
+             RowBox[{"MemberQ", "[", 
+              RowBox[{"Z", ",", "x"}], "]"}]}]}], "]"}]}]}], "]"}], ";", 
+       "\[IndentingNewLine]", "\t", 
+       RowBox[{"{", 
+        RowBox[{"res", ",", "hosp", ",", "Z"}], "}"}]}]}], "]"}]}],
+   FontSize->24], "\n", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ StyleBox[
+  RowBox[{"Clear", "@", "clearEmptyRes"}],
+  FontSize->24], "\[IndentingNewLine]", 
+ RowBox[{
+  StyleBox[
+   RowBox[{
+    RowBox[{"clearEmptyRes", "[", "associationRes_", "]"}], ":=", " ", 
+    RowBox[{"DeleteCases", "[", 
+     RowBox[{"associationRes", ",", 
+      RowBox[{"{", "}"}]}], "]"}]}],
+   FontSize->24], "\[IndentingNewLine]"}], "\n", 
+ StyleBox[
+  RowBox[{
+   RowBox[{"Clear", "@", "clearEmptyHosp"}], "  "}],
+  FontSize->24], "\[IndentingNewLine]", 
+ RowBox[{
+  StyleBox[
+   RowBox[{
+    RowBox[{"clearEmptyHosp", "[", "associationHosp_", "]"}], ":=", " ", 
+    RowBox[{"DeleteCases", "[", 
+     RowBox[{"associationHosp", ",", 
+      RowBox[{"{", "}"}]}], "]"}]}],
+   FontSize->24], "\[IndentingNewLine]"}], "\n", 
+ StyleBox[
+  RowBox[{"Clear", "@", "strongStableMatchQ"}],
+  FontSize->24], "\[IndentingNewLine]", 
+ RowBox[{
+  StyleBox[
+   RowBox[{
+    RowBox[{"strongStableMatchQ", "[", "matchings_", "]"}], ":=", " ", 
+    RowBox[{"Module", "[", "\[IndentingNewLine]", "\t", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"m", " ", "=", " ", "matchings"}], ",", " ", 
+        RowBox[{"f", " ", "=", " ", 
+         RowBox[{"Style", "[", 
+          RowBox[{
+          "\"\<No strongly stable matching exists\>\"", ",", "45", ",", 
+           RowBox[{"Hue", "[", 
+            RowBox[{"0.02", ",", "0.88", ",", "0.57"}], "]"}]}], "]"}]}]}], 
+       "}"}], ",", "\[IndentingNewLine]", "\t", 
+      RowBox[{
+       RowBox[{"If", "[", " ", 
+        RowBox[{
+         RowBox[{"DuplicateFreeQ", "[", 
+          RowBox[{"m", "\[LeftDoubleBracket]", 
+           RowBox[{"All", ",", "1"}], "\[RightDoubleBracket]"}], "]"}], ",", 
+         RowBox[{"f", " ", "=", " ", 
+          RowBox[{"Style", "[", 
+           RowBox[{"\"\<Strongly stable matching\>\"", ",", "45", ",", 
+            RowBox[{"Hue", "[", 
+             RowBox[{"0.33", ",", "0.85", ",", "0.41"}], "]"}]}], "]"}]}]}], 
+        "]"}], ";", "\[IndentingNewLine]", "\t", "f"}]}], "]"}]}],
+   FontSize->24], "\[IndentingNewLine]"}], "\n", 
+ StyleBox[
+  RowBox[{
+   RowBox[{"Clear", "@", "matchingHRT"}], " "}],
+  FontSize->24], "\[IndentingNewLine]", 
+ StyleBox[
+  RowBox[{
+   RowBox[{"matchingHRT", "[", 
+    RowBox[{"listOfResPref_", ",", "listOfHospPref_"}], "]"}], ":=", 
+   RowBox[{"Module", "[", "\[IndentingNewLine]", "\t", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"associationRes", " ", "=", " ", 
+        RowBox[{"<|", 
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{
+            "#", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}], 
+            "\[Rule]", " ", 
+            RowBox[{
+            "#", "\[LeftDoubleBracket]", "2", "\[RightDoubleBracket]"}]}], 
+           "&"}], "/@", "listOfResPref"}], "|>"}]}], ",", 
+       "\[IndentingNewLine]", "\t", 
+       RowBox[{"associationHosp", " ", "=", " ", 
+        RowBox[{"<|", 
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{
+            "#", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}], 
+            "\[Rule]", " ", 
+            RowBox[{
+            "#", "\[LeftDoubleBracket]", "2", "\[RightDoubleBracket]"}]}], 
+           "&"}], "/@", "listOfHospPref"}], "|>"}]}], ",", 
+       "\[IndentingNewLine]", "\t", 
+       RowBox[{"quotaList", " ", "=", " ", 
+        RowBox[{"<|", 
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{
+            "#", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}], 
+            "\[Rule]", " ", 
+            RowBox[{
+            "#", "\[LeftDoubleBracket]", "3", "\[RightDoubleBracket]"}]}], 
+           "&"}], "/@", "listOfHospPref"}], "|>"}]}], ",", 
+       "\[IndentingNewLine]", "\t", 
+       RowBox[{"criticalSet", "=", 
+        RowBox[{"{", "}"}]}], ",", "\[IndentingNewLine]", "\t", "setOfRes", 
+       ",", " ", "headOfPref", ",", " ", "resInGraph", ",", " ", "graph", ",",
+        " ", "reducedGraph", ",", " ", "bound", ",", " ", "r", ",", " ", 
+       "h"}], "}"}], ",", "\[IndentingNewLine]", "\t", 
+     RowBox[{
+      RowBox[{"While", "[", 
+       RowBox[{
+        RowBox[{"criticalSet", " ", "\[Equal]", " ", 
+         RowBox[{"{", "}"}]}], ",", "\[IndentingNewLine]", "\t\t", 
+        RowBox[{
+         RowBox[{"graph", " ", "=", 
+          RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", "\t\t", 
+         RowBox[{"setOfRes", "=", " ", 
+          RowBox[{"Keys", "[", "associationRes", "]"}]}], ";", 
+         "\[IndentingNewLine]", "\t\t", 
+         RowBox[{"While", "[", " ", 
+          RowBox[{
+           RowBox[{"setOfRes", " ", "\[NotEqual]", " ", 
+            RowBox[{"{", "}"}]}], ",", "\[IndentingNewLine]", "\t\t", "\t", 
+           RowBox[{
+            RowBox[{"r", " ", "=", " ", 
+             RowBox[{
+             "setOfRes", "\[LeftDoubleBracket]", "1", 
+              "\[RightDoubleBracket]"}]}], ";", "\[IndentingNewLine]", "\t\t",
+             "\t", 
+            RowBox[{"headOfPref", " ", "=", " ", 
+             RowBox[{
+              RowBox[{"associationRes", "[", "r", "]"}], 
+              "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}]}], ";", 
+            "\[IndentingNewLine]", "\t\t", "\t", 
+            RowBox[{"Table", "[", "\[IndentingNewLine]", "\t\t", "\t\t", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"h", " ", "=", " ", "j"}], ";", "\[IndentingNewLine]", 
+               "\t\t", "\t\t", 
+               RowBox[{"AppendTo", "[", 
+                RowBox[{"graph", ",", " ", 
+                 RowBox[{"{", 
+                  RowBox[{"r", ",", "h"}], "}"}]}], "]"}], ";", 
+               "\[IndentingNewLine]", "\t\t", "\t\t", 
+               RowBox[{"If", "[", "\[IndentingNewLine]", "\t\t", "\t\t", "\t", 
+                RowBox[{
+                 RowBox[{"repleteQ", "[", 
+                  RowBox[{"graph", ",", " ", "h", ",", " ", 
+                   RowBox[{"quotaList", "[", "h", "]"}]}], "]"}], ",", 
+                 "\[IndentingNewLine]", "\t\t", "\t\t", "\t", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{"graph", " ", ",", 
+                    RowBox[{"associationHosp", "[", "h", "]"}], " ", ",", 
+                    "associationRes"}], "}"}], " ", "=", " ", 
+                  RowBox[{"deleteDominated", "[", 
+                   RowBox[{"graph", ",", "h", ",", 
+                    RowBox[{"quotaList", "[", "h", "]"}], ",", 
+                    RowBox[{"associationHosp", "[", "h", "]"}], ",", 
+                    "associationRes"}], "]"}]}]}], "]"}]}], ",", 
+              "\[IndentingNewLine]", "\t\t", "\t", 
+              RowBox[{"{", 
+               RowBox[{"j", ",", "headOfPref"}], "}"}]}], "]"}], ";", 
+            "\[IndentingNewLine]", "\t\t", "\t", 
+            RowBox[{"resInGraph", " ", "=", " ", 
+             RowBox[{"First", "/@", "graph"}]}], ";", "\[IndentingNewLine]", 
+            "\t\t", "\t", 
+            RowBox[{"setOfRes", " ", "=", " ", 
+             RowBox[{"deleteEmptyRes", "[", 
+              RowBox[{
+               RowBox[{"Complement", "[", 
+                RowBox[{"setOfRes", ",", "resInGraph"}], "]"}], ",", 
+               "associationRes"}], "]"}]}]}]}], " ", "\[IndentingNewLine]", 
+          "\t\t", "\t", "]"}], ";", "\[IndentingNewLine]", "\t\t", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"reducedGraph", " ", ",", "bound", ",", "quotaList"}], 
+           "}"}], "=", 
+          RowBox[{"deleteBound", "[", 
+           RowBox[{
+           "graph", ",", "associationRes", ",", "associationHosp", ",", 
+            "quotaList"}], "]"}]}], ";", "\[IndentingNewLine]", "\t\t", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+           "associationRes", ",", "associationHosp", ",", "criticalSet"}], 
+           "}"}], "=", 
+          RowBox[{"findCriticalSet", "[", 
+           RowBox[{
+           "reducedGraph", ",", "associationRes", ",", "associationHosp", ",",
+             "quotaList"}], "]"}]}], ";", "\[IndentingNewLine]", "  ", "  ", 
+         RowBox[{"associationRes", "=", 
+          RowBox[{"clearEmptyRes", "[", "associationRes", "]"}]}], ";", 
+         "\[IndentingNewLine]", "  ", "  ", 
+         RowBox[{"associationHosp", "=", 
+          RowBox[{"clearEmptyHosp", "[", "associationHosp", "]"}]}], ";"}]}], 
+       "\[IndentingNewLine]", "\t", "]"}], ";", " ", "\[IndentingNewLine]", 
+      "\t", 
+      RowBox[{"Join", "[", 
+       RowBox[{"bound", ",", "criticalSet"}], "]"}]}]}], "]"}]}],
+  FontSize->24]}], "Code",
+ CellChangeTimes->{{3.766071269345978*^9, 3.7660713185576105`*^9}, {
+   3.7660713873194313`*^9, 3.7660714750887823`*^9}, {3.7660716006888275`*^9, 
+   3.766071637003441*^9}, {3.766071669440237*^9, 3.766071671665245*^9}, {
+   3.7660717091950464`*^9, 3.7660717386949897`*^9}, {3.7660718060163608`*^9, 
+   3.7660718399276047`*^9}, {3.7663252780482845`*^9, 
+   3.7663253763858414`*^9}, {3.7663254065462294`*^9, 3.766325479659395*^9}, 
+   3.7663255965745764`*^9, 3.7663351527575474`*^9, {3.7670854591435056`*^9, 
+   3.767085548840418*^9}, {3.7670861225725064`*^9, 3.7670861437105274`*^9}, 
+   3.767086186337325*^9, {3.7670862224912033`*^9, 3.7670869185046206`*^9}, {
+   3.767086963200279*^9, 3.767086989151678*^9}, {3.767087037484319*^9, 
+   3.767087162255734*^9}, {3.7670877540138364`*^9, 3.767087780427457*^9}, {
+   3.767087811295209*^9, 3.767087887507997*^9}, {3.767087978336095*^9, 
+   3.767087993966751*^9}, {3.767095130759564*^9, 3.7670951312541223`*^9}, {
+   3.767147583679229*^9, 3.7671475891636662`*^9}, {3.767151769916177*^9, 
+   3.767151779233243*^9}, {3.7676264212529373`*^9, 3.76762642811556*^9}, {
+   3.7676264720292377`*^9, 3.7676264780326195`*^9}, {3.7676265983315907`*^9, 
+   3.767626631472272*^9}, {3.7676266624213767`*^9, 3.767626744772579*^9}, {
+   3.7676267826086493`*^9, 3.7676267874924335`*^9}, {3.7676268215229225`*^9, 
+   3.767626855087325*^9}, {3.767631350114939*^9, 3.767631355941725*^9}},
+ Background->GrayLevel[1],
+ CellLabel->"In[1]:=",ExpressionUUID->"1a7d6e23-8161-4553-81d5-63a244658ccb"]
+},
+WindowSize->{1350, 685},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+Magnification:>0.6 Inherited,
+FrontEndVersion->"11.3 for Microsoft Windows (64-bit) (March 6, 2018)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 23678, 566, 1607, "Code",ExpressionUUID->"1a7d6e23-8161-4553-81d5-63a244658ccb"]
+}
+]
+*)
+
+(* End of internal cache information *)
+
